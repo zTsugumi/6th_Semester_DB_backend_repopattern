@@ -8,11 +8,11 @@ var config = require('./config');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/usersRouter');
 var dishRouter = require('./routes/dishRouter');
-var promoRouter = require('./routes/promoRouter');
 var staffRouter = require('./routes/staffRouter');
 var uploadRouter = require('./routes/uploadRouter');
 var favoriteRouter = require('./routes/favoriteRouter');
 var commentRouter = require('./routes/commentRouter');
+var reservationRouter = require('./routes/reservationRouter');
 
 const mongoose = require('mongoose');
 
@@ -55,19 +55,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Router
 app.use('/dishes', dishRouter);
-app.use('/promotions', promoRouter);
 app.use('/staffs', staffRouter);
 app.use('/imageUpload', uploadRouter);
 app.use('/favorites', favoriteRouter);
 app.use('/comments', commentRouter);
+app.use('/reservation', reservationRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
