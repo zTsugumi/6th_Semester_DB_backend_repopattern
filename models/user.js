@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 
-var User = new Schema({
+var UserSchema = new mongoose.Schema({
     firstname: {
         type: String,
         default: ''
@@ -16,9 +15,9 @@ var User = new Schema({
         type: Boolean,
         default: false
     }
-});
+}, { timestamps: true });
 
 // Auto add user and hashed pwd
-User.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', UserSchema);

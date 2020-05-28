@@ -1,13 +1,12 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;             // Use local strat for first-time login
 var JwtStrategy = require('passport-jwt').Strategy;                 // Use Jwt strat after that
-var FacebookTokenStrategy = require('passport-facebook-token');     // Use Facebook token strat
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var jwt = require('jsonwebtoken');
 
-var config = require('./config');
+var config = require('../config');
 
-var User = require('./models/user');
+var User = require('../models/user');
 
 
 /*********************************************** local strat to check user ***********************************************/
@@ -66,33 +65,3 @@ exports.verifyAdmin = (req, res, next) => {
         )
         .catch((err) => next(err));
 };
-
-/************************************************** Facebook Token strat **************************************************/
-passport.use(new FacebookTokenStrategy({
-    clientID: config.facebook.clientId,
-    clientSecret: config.facebook.clientSecret
-}, (accessToken, refreshToken, profile, done) => {
-    // If this fb user loged in before
-    User.findOne({ facebookId: profile.id }, (err, user) => {
-        if (err) {
-            return done(err, false);
-        }
-        if (!err && user !== null)
-            return done(null, user);
-        else {
-            user = new User({ username: profile.displayName });
-            user.facebookId = profile.id;
-            user.firstname = profile.name.givenName;
-            user.lastname = profile.name.familyName;
-            user.save((err, user) => {
-                if (err)
-                    return done(err, false);
-                else
-                    return done(null, user);
-            });
-        }
-    });
-}
-));
-
-exports.fbVerifyUser = passport.authenticate('facebook-token', { session: false });

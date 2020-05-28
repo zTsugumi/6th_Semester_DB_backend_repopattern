@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const authenticate = require('../authenticate');
+const authenticate = require('../helpers/authenticate');
 const multer = require('multer');
 const cors = require('./cors');
 
