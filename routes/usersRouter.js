@@ -12,6 +12,7 @@ router.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus = 200 }
 router.get('/', cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, userCtrl.findAll)
 router.post('/signup', cors.corsWithOptions, userCtrl.create)
 router.post('/login', cors.corsWithOptions, userCtrl.login)
+router.delete('/:userId', cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, userCtrl.deleteOne)
 //router.post('/logout', cors.corsWithOptions, userCtrl.logout)   // ?? Can add a blacklist for token
 
 module.exports = router

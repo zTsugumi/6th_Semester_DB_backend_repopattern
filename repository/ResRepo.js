@@ -31,8 +31,8 @@ async function update(id, data) {
     }, { new: true })
 }
 
-async function deleteOne(id) {
-    return Reservations.findByIdAndRemove(id)
+async function deleteOne(userId) {
+    return Reservations.findOneAndDelete({ user: userId })
 }
 
 module.exports = {
@@ -40,5 +40,6 @@ module.exports = {
     create,
     deleteAll,
     find,
-    findById
+    findById,
+    deleteOne
 }

@@ -2,6 +2,8 @@ var passport = require('passport')
 var authenticate = require('../helpers/authenticate')
 const sendJsonResponse = require('../helpers/sendResponse')
 const UserRepo = require('../repository/UserRepo')
+const FavoriteRepo = require('../repository/FavoriteRepo')
+const ResRepo = require('../repository/ResRepo')
 
 async function findAll(req, res, next) {
     UserRepo.findAll()
@@ -45,8 +47,34 @@ async function login(req, res, next) {
     })(req, res, next)
 }
 
+async function deleteOne(req, res, next) {
+    var deleteId = req.params.userId
+
+    UserRepo.deleteOne(deleteId)
+        .then(
+            (response) => sendJsonResponse(res, 200, response),
+            (err) => next(err)
+        )
+        .catch((err) => next(err))
+
+    FavoriteRepo.deleteAll(deleteId)
+        .then(
+            (response) => sendJsonResponse(res, 200, response),
+            (err) => next(err)
+        )
+        .catch((err) => next(err))
+
+    ResRepo.deleteOne(deleteId)
+        .then(
+            (response) => sendJsonResponse(res, 200, response),
+            (err) => next(err)
+        )
+        .catch((err) => next(err))
+}
+
 module.exports = {
     findAll,
     create,
-    login
+    login,
+    deleteOne
 }

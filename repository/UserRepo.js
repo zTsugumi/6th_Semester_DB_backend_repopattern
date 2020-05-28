@@ -21,7 +21,12 @@ async function create(newUser) {
     })
 }
 
+async function deleteOne(deleteId) {
+    return User.findByIdAndDelete(deleteId)
+}
+
 module.exports = {
     findAll,
-    create
+    create,
+    deleteOne
 }
