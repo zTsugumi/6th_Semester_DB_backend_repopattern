@@ -29,7 +29,7 @@ staffRouter.route('/')
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.json(staff);
-                    console.log('staff Created: ', staff);
+                    console.log('Staff Created: ', staff);
                 },
                 (err) => next(err)
             )
@@ -73,7 +73,7 @@ staffRouter.route('/:staffId')
         res.end('POST not supported on /staffs/' + req.params.staffId);
     })
     .put(cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Leaders.findByIdAndUpdate(req.params.staffId, {
+        Staffs.findByIdAndUpdate(req.params.staffId, {
             $set: req.body
         }, { new: true })
             .then(
@@ -87,7 +87,7 @@ staffRouter.route('/:staffId')
             .catch((err) => next(err));
     })
     .delete(cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Leaders.findByIdAndRemove(req.params.staffId)
+        Staffs.findByIdAndRemove(req.params.staffId)
             .then(
                 (response) => {
                     res.statusCode = 200;

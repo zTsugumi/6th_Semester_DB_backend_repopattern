@@ -88,7 +88,7 @@ dishRouter.route('/:dishId')
             )
             .catch((err) => next(err));
     })
-    .delete(cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.jwtVerifyUser, authenticate.verifyAdmin, (req, res, next) => {        
         Dishes.findByIdAndRemove(req.params.dishId)
             .then(
                 (response) => {

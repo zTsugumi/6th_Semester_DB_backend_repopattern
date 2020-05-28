@@ -28,7 +28,8 @@ const dishSchema = new Schema({
     },
     featured: {
         type: Boolean,
-        default: false
+        default: false,
+        unique: true
     }
 }, {
     timestamps: true    // automatically add 'createdAt' and 'updatedAt' 

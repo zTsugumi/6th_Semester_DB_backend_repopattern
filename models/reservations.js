@@ -21,6 +21,10 @@ var reservationSchema = new Schema({
                 required: true,
                 min: Date.now
             },
+            nGuest: {
+                type: Number,
+                required: true
+            },
             agree: {
                 type: Boolean,
                 default: false
